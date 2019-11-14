@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 22:03:47 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/13 23:20:32 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/14 03:47:20 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,17 @@
 # define MENU_WIDTH 300  
 # define MAX_THREAD 100
 
+typedef struct  s_complex
+{
+    long double r;
+    long double i;
+}               t_complex;
+
+typedef struct	s_point
+{
+	int x;
+	int y;
+}	t_point;
 
 typedef struct	s_draw_line
 {
@@ -59,19 +70,10 @@ typedef struct	s_fractol
 	int img_height;
 	int x_thread;
 	int y_thread;
-}				t_fractol;
-
-typedef struct  s_complex
-{
-    long double r;
-    long double i;
-}               t_complex;
-
-typedef struct	s_point
-{
+	t_complex julia_const;
 	int x;
 	int y;
-}	t_point;
+}				t_fractol;
 
 typedef struct	s_thread_arg
 {
