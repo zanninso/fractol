@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   julia.c                                            :+:      :+:    :+:   */
+/*   julia2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 03:15:23 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/14 23:55:28 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/14 23:41:07 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void *iterate(t_complex z, t_point p, t_fractol *fractol)
     while (1)
     {
         tmp = z.r;
-        z.r = (z.r * z.r) - (z.i * z.i) + fractol->julia_const.r;
-        z.i = 2 * z.i * tmp + fractol->julia_const.i;
+        z.r = (z.r * z.r) - (z.i * z.i) + ((fractol->julia_const.r * fractol->julia_const.r) - (fractol->julia_const.i * fractol->julia_const.i));
+        z.i = 2 * z.i * tmp +  (2 * fractol->julia_const.r * fractol->julia_const.i);
         i++;
         if (z.r * z.r + z.i * z.i < 4.0 && i < fractol->iteration)
             continue;
@@ -86,8 +86,8 @@ static int move(int x, int y, t_fractol *fractol)
     if (!fractol->pause)
     {
         x -= MENU_WIDTH;
-        fractol->julia_const.r = (double)(x - 350) / 90.;
-        fractol->julia_const.i = (double)(y - 350) / 90.;
+        fractol->julia_const.r = (double)(x - 350) / 100.;
+        fractol->julia_const.i = (double)(y - 350) / 100.;
         run(fractol);
     }
     return (0);

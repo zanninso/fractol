@@ -1,42 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   julia.c                                            :+:      :+:    :+:   */
+/*   burning_chip.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/14 03:15:23 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/14 23:55:28 by aait-ihi         ###   ########.fr       */
+/*   Created: 2019/11/08 22:38:27 by aait-ihi          #+#    #+#             */
+/*   Updated: 2019/11/14 21:50:16 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static void *iterate(t_complex z, t_point p, t_fractol *fractol)
+static void *iterate(t_complex c, t_point p, t_fractol *fractol)
 {
     int i;
     long double tmp;
+    t_complex z;
 
+    z = (t_complex){0, 0};
     i = 0;
     while (1)
     {
         tmp = z.r;
-        z.r = (z.r * z.r) - (z.i * z.i) + fractol->julia_const.r;
-        z.i = 2 * z.i * tmp + fractol->julia_const.i;
+        z.r = fabsl(z.r * z.r - z.i * z.i) + c.r;
+        z.i = fabsl(2 * z.i * tmp) + c.i;
         i++;
-        if (z.r * z.r + z.i * z.i < 4.0 && i < fractol->iteration)
+        if (z.r * z.r + z.i * z.i < 4 && i < fractol->iteration)
             continue;
         break;
     }
-    put_pixel(&fractol->img, p.x, p.y, ft_color1(i,fractol->iteration));
+    put_pixel(&fractol->img, p.x, p.y, ft_color2(i,fractol->iteration));
     // if (i == fractol->iteration)
     //     put_pixel(&fractol->img, p.x, p.y, 0);
     // else
-    //     put_pixel(&fractol->img, p.x, p.y, 0xff0100 * i * i * i);
+    //     put_pixel(&fractol->img, p.x, p.y, 0xff0100 * i * i);
     return (NULL);
 }
 
-static void *calculate(void *arg)
+static void *fractol1(void *arg)
 {
     int x;
     int y;
@@ -72,7 +74,7 @@ static void run(t_fractol *fractol)
     while (i < MAX_THREAD)
     {
         thread_arg[i] = (t_thread_arg){fractol, x, x + fractol->x_thread};
-        pthread_create(&thread_id[i], NULL, calculate, &thread_arg[i]);
+        pthread_create(&thread_id[i], NULL, fractol1, &thread_arg[i]);
         x += fractol->x_thread;
         i++;
     }
@@ -81,24 +83,11 @@ static void run(t_fractol *fractol)
     render(fractol);
 }
 
-static int move(int x, int y, t_fractol *fractol)
+void init_burning_ship(t_fractol *fractol)
 {
-    if (!fractol->pause)
-    {
-        x -= MENU_WIDTH;
-        fractol->julia_const.r = (double)(x - 350) / 90.;
-        fractol->julia_const.i = (double)(y - 350) / 90.;
-        run(fractol);
-    }
-    return (0);
-}
-
-void init_julia(t_fractol *fractol)
-{
-    fractol->zoom = (t_zoom){250, 1.4, 1.4};
+    fractol->zoom = (t_zoom){250, 1.7, 1.4};
     fractol->iteration = 50;
-    fractol->julia_const = (t_complex){0.0, 0.0};
-    mlx_hook(fractol->win_ptr, 6, 1, move, fractol);
+    mlx_hook(fractol->win_ptr, 6, 1, NULL, NULL);
     fractol->run = run;
     run(fractol);
 }
