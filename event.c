@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 18:43:36 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/12 00:07:04 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/13 23:21:11 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 int		mouse_press(int button, int x, int y, t_fractol *fractol)
 {
-	if (button == 5 || button == 4 || button == 1)
+	double old_zoom;
+
+	if (button == 5 || button == 4)
 	{
-		x += y * 0;
-		// const int x2 = fractol->zoom.zoom * x;
-		// const int y2 = fractol->zoom.zoom * y;
 		x -= MENU_WIDTH;
-		fractol->zoom.zoom *= button == 5 ? 1.05 : 1.05;
-		fractol->zoom.x += round(x * fractol->zoom.zoom) - (x + fractol->zoom.x);
-		fractol->zoom.y += round(y * fractol->zoom.zoom) - (y + fractol->zoom.y);
-		ft_printf("zoom x start : %d\n",fractol->zoom.x);
-		fractol1(fractol);
+		old_zoom = fractol->zoom.zoom;
+		fractol->zoom.zoom *= button == 5 ? 1.1 : 0.7;
+		fractol->zoom.x += x / fractol->zoom.zoom - x / old_zoom;
+		fractol->zoom.y += y / fractol->zoom.zoom - y / old_zoom;
+		fractol->iteration += button == 5 ? 3 : -3;
+		run(fractol);
 		render(fractol);
 	}
 	return (0);

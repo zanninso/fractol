@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 21:51:00 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/12 00:11:09 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/13 22:00:39 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,17 @@ void init(t_fractol *fractol)
 	img.data = mlx_get_data_addr(img.ptr, &img.bpp, &img.size_line, &img.endian);
 	attach_hooks(fractol);
 	fractol->img = img;
-	fractol->iteration = 1;
-	fractol->zoom.zoom = 1;
-	fractol->zoom.x = 0;
-	fractol->zoom.y = 0;
-	fractol->iteration = 50 * fractol->zoom.zoom;
-	//attach_hooks(fractol);
+	fractol->zoom = (t_zoom){250, 2.2, 1.4};
+	fractol->iteration = 50;
+	fractol->x_thread =  ((WIN_WIDTH - MENU_WIDTH) / MAX_THREAD);
+	fractol->y_thread = (WIN_HIEGHT / MAX_THREAD);
 }
 
 int main()
 {
 	t_fractol fractol;
 	init(&fractol);
-	fractol1(&fractol);
+	run(&fractol);
 	render(&fractol);
 	mlx_loop(fractol.mlx_ptr);
 }

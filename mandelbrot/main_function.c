@@ -3,33 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main_function.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 22:38:27 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/11 23:24:21 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/13 23:10:55 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandelbrot.h"
 
-static void init(t_fractol *fractol)
-{
-	fractol->x1 = -2.1;
-	fractol->x2 = 0.6;
-	fractol->y1 = -1.2;
-	fractol->y2 = 1.2;
-	fractol->zoom_x = (fractol->zoom.zoom * (WIN_WIDTH - MENU_WIDTH)) / 2.7;
-	fractol->zoom_y = (fractol->zoom.zoom * WIN_HIEGHT) / 2.4;
-	fractol->iteration = 50;
-}
-
-void iterate(t_complex c,t_point p, t_fractol *fractol)
+void *iterate(t_complex c, t_point p,t_fractol *fractol)
 {
     int i;
     long double tmp;
-	t_complex z;
+    t_complex z;
 
-	z = (t_complex){0,0};
+    z = (t_complex){0, 0};
     i = 0;
     while (1)
     {
@@ -42,34 +31,52 @@ void iterate(t_complex c,t_point p, t_fractol *fractol)
         break;
     }
     if (i == fractol->iteration)
-        put_pixel(&fractol->img,p.x, p.y, 0);
-	else
-		put_pixel(&fractol->img,p.x, p.y, 0xff0100 * i * i);
-
+        put_pixel(&fractol->img, p.x, p.y, 0);
+    else
+        put_pixel(&fractol->img, p.x, p.y, 0xff0100 * i);
+    return(NULL);
 }
 
-void fractol1(t_fractol *fractol)
+void *fractol1(void *arg)
 {
     int x;
     int y;
     t_complex c;
+    t_fractol *fractol;
 
-	init(fractol);
-
-    y = fractol->zoom.y;
-    while (y < WIN_HIEGHT + fractol->zoom.y)
+    y = 0;
+    fractol = ((t_thread_arg *)arg)->fractol;
+    while (y <  WIN_HIEGHT)
     {
-        x = fractol->zoom.x;
-        while (x < WIN_WIDTH + fractol->zoom.x)
+        x = ((t_thread_arg *)arg)->x;
+        while (x < ((t_thread_arg *)arg)->x_max)
         {
-            c.r = x / fractol->zoom_x + fractol->x1;
-			c.i = y / fractol->zoom_y + fractol->y1;
-            iterate(c, (t_point){x - fractol->zoom.x ,y - fractol->zoom.y}, fractol);
+            c.r = x / fractol->zoom.zoom - fractol->zoom.x;
+            c.i = y / fractol->zoom.zoom - fractol->zoom.y;
+            iterate(c, (t_point){x,y}, fractol);
             x++;
         }
         y++;
     }
-	draw_line(fractol, (t_point){660,0}, (t_point){660,700}, 0xffffff);
-	draw_line(fractol, (t_point){629,0}, (t_point){629,700}, 0xffffff);
-	draw_line(fractol, (t_point){664,0}, (t_point){664,700}, 0xffffff);
+    return (NULL);
+}
+
+void run(t_fractol *fractol)
+{
+    int x;
+    int i;
+    pthread_t thread_id[MAX_THREAD];
+    t_thread_arg thread_arg[MAX_THREAD];
+
+    i = 0;
+    x = 0;
+    while (i < MAX_THREAD)
+        {
+            thread_arg[i] = (t_thread_arg){fractol, x, x + fractol->x_thread};
+            pthread_create(&thread_id[i], NULL, fractol1, &thread_arg[i]);
+            x += fractol->x_thread;
+            i++;
+        }
+        while (i-- > 0)
+            pthread_join(thread_id[i], NULL);
 }
