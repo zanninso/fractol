@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 18:43:36 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/14 21:59:29 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/15 02:34:01 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int key_press(int button, t_fractol *fractol)
 		fractol->pause ^= 1;
 	else if(button == 1)
 	{
-		fractol->fractal = (fractol->fractal + 1) % 5;
+		fractol->fractal = (fractol->fractal + 1) % 7;
 		init_fractal(fractol);
 	}
 	return (0);

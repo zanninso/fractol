@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 22:03:47 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/14 21:59:02 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/15 02:33:51 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ void	init_julia(t_fractol *fractol);
 void	init_multibrot(t_fractol *fractol);
 void	init_burning_ship(t_fractol *fractol);
 void	init_tricorn(t_fractol *fractol);
+void	init_feigenbaum(t_fractol *fractol);
+void	init_eyebrot(t_fractol *fractol);
 void	init_fractal(t_fractol *fractol);
 
 

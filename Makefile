@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+         #
+#    By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/16 17:16:42 by aait-ihi          #+#    #+#              #
-#    Updated: 2019/11/14 21:58:11 by aait-ihi         ###   ########.fr        #
+#    Updated: 2019/11/15 02:35:01 by aait-ihi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-SRC = fractol.c draw.c event.c julia.c mandelbrot.c multilbrot.c color.c burning_chip.c tricorn.c
+SRC = fractol.c draw.c event.c julia.c mandelbrot.c multilbrot.c color.c burning_chip.c tricorn.c feigenbaum.c eyebrot.c
 
 LIB_FT = libft/libft.a
 

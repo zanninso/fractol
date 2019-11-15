@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 21:51:00 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/14 22:00:16 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/15 02:34:33 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ void init_fractal(t_fractol *fractol)
 		init_burning_ship(fractol);
 	else if(fractol->fractal == 4)
 		init_tricorn(fractol);
+	else  if(fractol->fractal == 5)
+		init_feigenbaum(fractol);
+	else  if(fractol->fractal == 6)
+		init_eyebrot(fractol);
 	else
 		init_brot(fractol);
 }
