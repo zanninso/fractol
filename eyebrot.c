@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   eyebrot.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 02:24:40 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/15 03:50:01 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/15 17:22:48 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ static void *iterate(t_complex c, t_point p, t_fractol *fractol)
     while (1)
     {
         tmp = z.r;
-        if(c.i > 0)
+        if(c.i >= 0)
         {
             z.r = cos(z.r) * cosh(z.i) + c.r / (c.i * c.i + c.r * c.r);
-            z.i = -(sin(tmp) * sinh(z.i)) + c.i / (c.i * c.i + c.r * c.r);
+            z.i = -(sin(tmp) * sinh(z.i)) - c.i / (c.i * c.i + c.r * c.r);
         }
         else
         {
