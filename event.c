@@ -6,7 +6,7 @@
 /*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 18:43:36 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/16 06:58:26 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/16 07:21:12 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,12 @@ int key_press(int button, t_fractol *fractol)
 		change_color_mod(fractol);
 	else if (button == 15)
 		fractol->init(fractol);
+	else if (button == 69)
+		fractol->iteration++;
+	else if (button == 78)
+		fractol->iteration++;
+	else if(button == 76 || button == 36)
+		fractol->run(fractol);
 	return (0);
 }
 
