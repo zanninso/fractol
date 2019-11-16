@@ -6,7 +6,7 @@
 /*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 15:19:49 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/09/19 22:20:36 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/16 01:11:53 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "bigint.h"
 # define ABS(v) (v < 0 ? (v * -1) : v)
 # define SIGN(v) (v >= 0 ? 1 : -1)
+# define BETWEEN(v,v1,v2) (v >= v1 && v<= v2) 
 
 typedef struct	s_list
 {

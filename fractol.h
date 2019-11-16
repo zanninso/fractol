@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 22:03:47 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/15 02:33:51 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/16 06:55:13 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
+# define FRACTOL_H
 # include <pthread.h> 
 # include <math.h>
 # include "mlx.h"
+# include "define.h"
 # include "libft/includes/libft.h"
 # define FRACTOL_H
 # define WIN_WIDTH 1000
@@ -35,16 +37,21 @@ typedef struct	s_point
 
 typedef struct	s_argb
 {
-	unsigned int	a:8;
-	unsigned int	r:8;
-	unsigned int	g:8;
 	unsigned int	b:8;
+	unsigned int	g:8;
+	unsigned int	r:8;
 }				t_argb;
 
-typedef union u_color
+typedef union u_rgb_color
 {
-	t_argb argb;
-	int color;
+	int c;
+	t_argb rgb;
+}				t_rgb_color;
+
+typedef struct s_color
+{
+	int i;
+	int *c;
 }				t_color;
 
 
@@ -77,6 +84,7 @@ typedef struct	s_fractol
 {
     void	*mlx_ptr;
     void	*win_ptr;
+	t_argb (*color)(int i, int imax, struct s_fractol *arg);
 	void (*run)(struct s_fractol  *arg);
 	void (*init)(struct s_fractol  *arg);
     t_img	img;
@@ -88,7 +96,8 @@ typedef struct	s_fractol
 	int x_thread;
 	int y_thread;
 	int fractal;
-	int multibrot_pow;
+	int color_mod;
+	t_color colors;
 	t_complex julia_const;
 	_Bool pause;
 }				t_fractol;
@@ -104,8 +113,13 @@ void	put_pixel(t_img *img, int x, int y, t_argb color);
 void	render(t_fractol *fractol);
 void	draw_line(t_fractol *fdf, t_point p1, t_point p2, int color);
 void	clean_img(t_img *img);
-t_argb        ft_color1( int n, int imax);
-t_argb        ft_color2(int    n, int k);
+void	draw_menu(t_fractol *fractol);
+void	draw_colors_selector(t_fractol *fractol);
+void	draw_colors(t_fractol *fractol);
+
+t_argb		ft_color1(int i, int iteration, t_fractol *fractol);
+t_argb		ft_color2(int i, int iteration, t_fractol *fractol);
+t_argb		ft_color0(int i, int iteration, t_fractol *fractol);
 
 
 
@@ -119,6 +133,8 @@ void	init_burning_ship(t_fractol *fractol);
 void	init_tricorn(t_fractol *fractol);
 void	init_feigenbaum(t_fractol *fractol);
 void	init_eyebrot(t_fractol *fractol);
+void	init_newton(t_fractol *fractol);
+void	change_color_mod(t_fractol *fractol);
 void	init_fractal(t_fractol *fractol);
 
 

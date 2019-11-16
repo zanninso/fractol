@@ -6,7 +6,7 @@
 /*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 03:15:23 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/14 23:55:28 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/16 06:59:17 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void *iterate(t_complex z, t_point p, t_fractol *fractol)
             continue;
         break;
     }
-    put_pixel(&fractol->img, p.x, p.y, ft_color1(i,fractol->iteration));
+    put_pixel(&fractol->img, p.x, p.y, fractol->color(i,fractol->iteration,fractol));
     // if (i == fractol->iteration)
     //     put_pixel(&fractol->img, p.x, p.y, 0);
     // else
@@ -100,5 +100,6 @@ void init_julia(t_fractol *fractol)
     fractol->julia_const = (t_complex){0.0, 0.0};
     mlx_hook(fractol->win_ptr, 6, 1, move, fractol);
     fractol->run = run;
+    fractol->init = init_julia;
     run(fractol);
 }

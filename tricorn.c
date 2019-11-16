@@ -6,7 +6,7 @@
 /*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 22:38:27 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/14 21:57:46 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/16 07:12:51 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void *iterate(t_complex c, t_point p, t_fractol *fractol)
             continue;
         break;
     }
-    put_pixel(&fractol->img, p.x, p.y, ft_color1(i,fractol->iteration));
+    put_pixel(&fractol->img, p.x, p.y, fractol->color(i,fractol->iteration,fractol));
     // if (i == fractol->iteration)
     //     put_pixel(&fractol->img, p.x, p.y, 0);
     // else
@@ -85,9 +85,10 @@ static void run(t_fractol *fractol)
 
 void init_tricorn(t_fractol *fractol)
 {
-    fractol->zoom = (t_zoom){250, 1.7, 1.4};
+    fractol->zoom = (t_zoom){175, 2, 2};
     fractol->iteration = 50;
     mlx_hook(fractol->win_ptr, 6, 1, NULL, NULL);
     fractol->run = run;
+    fractol->init = init_tricorn;
     run(fractol);
 }

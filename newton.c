@@ -1,48 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eyebrot.c                                          :+:      :+:    :+:   */
+/*   newton.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/15 02:24:40 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/16 06:59:46 by aait-ihi         ###   ########.fr       */
+/*   Created: 2019/11/15 19:28:56 by aait-ihi          #+#    #+#             */
+/*   Updated: 2019/11/16 07:16:14 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static void *iterate(t_complex c, t_point p, t_fractol *fractol)
+static void *iterate(t_complex z, t_point p, t_fractol *fractol)
 {
     int i;
     long double tmp;
-    t_complex z;
+    t_complex c;
 
-    z = (t_complex){0, 0};
+    c = (t_complex){1, 1};
     i = 0;
     while (1)
     {
         tmp = z.r;
-        // if(c.i >= 0)
-        // {
-            z.r = cos(z.r) * cosh(z.i) + c.r / (c.i * c.i + c.r * c.r);
-            z.i = -(sin(tmp) * sinh(z.i)) - c.i / (c.i * c.i + c.r * c.r);
-        // }
-        // else
-        // {
-        //     z.r = cos(z.r) * cosh(z.i) + c.r / (c.r * c.r - c.i * c.i);
-        //     z.i = -(sin(tmp) * sinh(z.i)) + c.i / (c.r * c.r - c.i * c.i);
-        // }
+        z.r = ((z.r * z.r * z.r) + 3 * z.r * -(z.i * z.i)) - fractol->julia_const.r;
+        z.i = (3 * tmp * tmp * z.i - (z.i * z.i * z.i)) - fractol->julia_const.i;
         i++;
         if (z.r * z.r + z.i * z.i < 4.0 && i < fractol->iteration)
             continue;
         break;
     }
     put_pixel(&fractol->img, p.x, p.y, fractol->color(i,fractol->iteration,fractol));
-    // if (i == fractol->iteration)
-    //     put_pixel(&fractol->img, p.x, p.y, 0);
-    // else
-    //     put_pixel(&fractol->img, p.x, p.y, 0xff0100 * i * i);
     return (NULL);
 }
 
@@ -91,12 +79,26 @@ static void run(t_fractol *fractol)
     render(fractol);
 }
 
-void init_eyebrot(t_fractol *fractol)
+
+static int move(int x, int y, t_fractol *fractol)
 {
-    fractol->zoom = (t_zoom){250, 1.7, 1.4};
+    if (!fractol->pause)
+    {
+        x -= MENU_WIDTH;
+        fractol->julia_const.r = (double)(x - 350) / 90.;
+        fractol->julia_const.i = (double)(y - 350) / 90.;
+        run(fractol);
+    }
+    return (0);
+}
+
+
+void init_newton(t_fractol *fractol)
+{
+    fractol->zoom = (t_zoom){250, 1.4, 1.4};
     fractol->iteration = 50;
-    mlx_hook(fractol->win_ptr, 6, 1, NULL, NULL);
+    mlx_hook(fractol->win_ptr, 6, 1, move, fractol);
+    fractol->init = init_newton;
     fractol->run = run;
-    fractol->init = init_eyebrot;
     run(fractol);
 }
