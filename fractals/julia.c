@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   julia.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 03:15:23 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/17 07:35:41 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/26 01:04:34 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,6 @@ static void	run(t_fractol *fractol)
 	render(fractol);
 }
 
-static int	move(int x, int y, t_fractol *fractol)
-{
-	if (!fractol->pause)
-	{
-		x -= MENU_WIDTH;
-		fractol->julia_const.r = (double)(x - 350) / 90.;
-		fractol->julia_const.i = (double)(y - 350) / 90.;
-		run(fractol);
-	}
-	return (0);
-}
-
 void		init_julia(t_fractol *fractol)
 {
 	fractol->zoom = (t_zoom){250, 1.4, 1.4};
@@ -104,7 +92,6 @@ void		init_julia(t_fractol *fractol)
 	fractol->colors.c[3] = 0x9f9f9f;
 	fractol->fractal_name = "Julia";
 	fractol->fractal_equation = "z^2 + c";
-	mlx_hook(fractol->win_ptr, 6, 1, move, fractol);
 	draw_title(fractol);
 	run(fractol);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 21:51:00 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/22 01:46:27 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/26 01:11:49 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int		main(int ac, char *av[])
 		ft_printf("%s%s%s", USAGE, USAGE2, "7 : Julia ^ 3\n");
 		return (0);
 	}
+	return(0);
 	fractol.mlx_ptr = mlx_init();
 	fractol.win_ptr = mlx_new_window(fractol.mlx_ptr, 1000, 700, "Fractol");
 	img.ptr = mlx_new_image(fractol.mlx_ptr, WIN_WIDTH - MENU_WIDTH, 700);

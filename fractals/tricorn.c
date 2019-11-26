@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tricorn.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 22:38:27 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/22 01:20:36 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/26 01:06:13 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,5 @@ void		init_tricorn(t_fractol *fractol)
 	fractol->fractal_name = "Tricorn";
 	fractol->fractal_equation = "conj(z)^2 + c";
 	draw_title(fractol);
-	mlx_hook(fractol->win_ptr, 6, 1, NULL, NULL);
 	run(fractol);
 }

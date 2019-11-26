@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   julia3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 19:28:56 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/22 01:22:14 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/26 01:05:45 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,18 +81,6 @@ static void	run(t_fractol *fractol)
 	render(fractol);
 }
 
-static int	move(int x, int y, t_fractol *fractol)
-{
-	if (!fractol->pause)
-	{
-		x -= MENU_WIDTH;
-		fractol->julia_const.r = (double)(x - 350) / 90.;
-		fractol->julia_const.i = (double)(y - 350) / 90.;
-		run(fractol);
-	}
-	return (0);
-}
-
 void		init_newton(t_fractol *fractol)
 {
 	fractol->zoom = (t_zoom){250, 1.4, 1.4};
@@ -107,6 +95,5 @@ void		init_newton(t_fractol *fractol)
 	fractol->fractal_name = "Julia ^ 3";
 	fractol->fractal_equation = "z^3 + c";
 	draw_title(fractol);
-	mlx_hook(fractol->win_ptr, 6, 1, move, fractol);
 	run(fractol);
 }

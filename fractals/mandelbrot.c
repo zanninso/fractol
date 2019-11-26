@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mandelbrot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 22:38:27 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/17 07:37:40 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/26 01:05:53 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,5 @@ void		init_brot(t_fractol *fractol)
 	fractol->fractal_name = "Mandelbrot";
 	fractol->fractal_equation = "z^2 + c";
 	draw_title(fractol);
-	mlx_hook(fractol->win_ptr, 6, 1, NULL, NULL);
 	run(fractol);
 }

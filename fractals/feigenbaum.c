@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   feigenbaum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 22:38:27 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/18 07:12:20 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/26 01:05:27 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,6 @@ static void	run(t_fractol *fractol)
 	render(fractol);
 }
 
-static int	move(int x, int y, t_fractol *fractol)
-{
-	if (!fractol->pause)
-	{
-		x -= MENU_WIDTH;
-		fractol->julia_const.r = (double)(x - 350) / 90.;
-		fractol->julia_const.i = (double)(y - 350) / 90.;
-		run(fractol);
-	}
-	return (0);
-}
-
 void		init_feigenbaum(t_fractol *fractol)
 {
 	fractol->zoom = (t_zoom){250, 1.2, 1.4};
@@ -111,6 +99,5 @@ void		init_feigenbaum(t_fractol *fractol)
 	fractol->julia_const = (t_complex){1.402, 0};
 	fractol->fractal_equation = "z^2 + c^3 - 1.401155";
 	draw_title(fractol);
-	mlx_hook(fractol->win_ptr, 6, 1, move, fractol);
 	run(fractol);
 }

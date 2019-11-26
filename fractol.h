@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 22:03:47 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/18 07:04:15 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/26 01:10:13 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct	s_fractol
 	int			y_thread;
 	int			fractal;
 	int			color_mod;
+	int			left_button_pressed;
 	_Bool		pause;
 }				t_fractol;
 
