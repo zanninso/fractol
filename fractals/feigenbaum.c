@@ -6,7 +6,7 @@
 /*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 22:38:27 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/17 07:34:09 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/18 07:12:20 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	*iterate(t_complex c, t_point p, t_fractol *fractol)
 	{
 		tmp = z.r;
 		z.r = (z.r * z.r) - (z.i * z.i) +
-							(pow(c.r, 3) + 3 * c.r * -(c.i * c.i)) - 1.401155;
+				(pow(c.r, 3) + 3 * c.r * -(c.i * c.i)) - fractol->julia_const.r;
 		z.i = 2 * z.i * tmp + (3 * c.r * c.r * c.i - pow(c.i, 3));
 		i++;
 		if (z.r * z.r + z.i * z.i < 4.0 && i < fractol->iteration)
@@ -85,19 +85,32 @@ static void	run(t_fractol *fractol)
 	render(fractol);
 }
 
+static int	move(int x, int y, t_fractol *fractol)
+{
+	if (!fractol->pause)
+	{
+		x -= MENU_WIDTH;
+		fractol->julia_const.r = (double)(x - 350) / 90.;
+		fractol->julia_const.i = (double)(y - 350) / 90.;
+		run(fractol);
+	}
+	return (0);
+}
+
 void		init_feigenbaum(t_fractol *fractol)
 {
 	fractol->zoom = (t_zoom){250, 1.2, 1.4};
-	fractol->iteration = 50;
+	fractol->iteration = 80;
 	fractol->run = run;
 	fractol->init = init_feigenbaum;
+	fractol->colors.c[3] = 0xbaf8fc;
+	fractol->colors.c[2] = 0x76f4fb;
+	fractol->colors.c[1] = 0xf9c7ff;
 	fractol->colors.c[0] = 0xaf0000;
-	fractol->colors.c[1] = WHITE;
-	fractol->colors.c[2] = 0xffff;
-	fractol->colors.c[3] = 0xffff;
 	fractol->fractal_name = "Feigenbaum";
+	fractol->julia_const = (t_complex){1.402, 0};
 	fractol->fractal_equation = "z^2 + c^3 - 1.401155";
 	draw_title(fractol);
-	mlx_hook(fractol->win_ptr, 6, 1, NULL, NULL);
+	mlx_hook(fractol->win_ptr, 6, 1, move, fractol);
 	run(fractol);
 }

@@ -6,7 +6,7 @@
 /*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 22:38:27 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/17 07:43:54 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/22 01:20:36 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ void		init_tricorn(t_fractol *fractol)
 	fractol->colors.c[1] = WHITE;
 	fractol->colors.c[2] = 0xff00;
 	fractol->colors.c[3] = 0xff00;
-	fractol->fractal_name = "tricorn";
-	fractol->fractal_equation = "z^3 + c";
+	fractol->fractal_name = "Tricorn";
+	fractol->fractal_equation = "conj(z)^2 + c";
 	draw_title(fractol);
 	mlx_hook(fractol->win_ptr, 6, 1, NULL, NULL);
 	run(fractol);

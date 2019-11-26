@@ -6,7 +6,7 @@
 /*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 18:43:36 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/17 04:42:36 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/17 23:02:20 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ int		key_press(int button, t_fractol *fractol)
 	if (BETWEEN(button, 123, 126))
 		fractal_move(button, fractol);
 	else if (button == 53)
-		exit(0);
+		free_and_exit(fractol);
 	return (0);
 }
 
-int		win_close(void *param)
+int		win_close(t_fractol *fractol)
 {
-	param = param + 0;
-	exit(0);
+	free_and_exit(fractol);
+	return (0);
 }
 
 void	attach_hooks(t_fractol *fractol)

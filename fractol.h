@@ -6,7 +6,7 @@
 /*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 22:03:47 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/17 03:03:36 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/18 07:04:15 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,6 @@ void			init_batman(t_fractol *fractol);
 void			init_newton(t_fractol *fractol);
 
 void			init_fractal(t_fractol *fractol);
+void			free_and_exit(t_fractol *fracol);
 
 #endif

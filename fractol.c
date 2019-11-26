@@ -6,11 +6,17 @@
 /*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 21:51:00 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/17 07:09:54 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/22 01:46:27 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void	free_and_exit(t_fractol *fracol)
+{
+	free(fracol->img.data);
+	exit(0);
+}
 
 void	init_fractal(t_fractol *fractol)
 {
@@ -38,7 +44,8 @@ int		main(int ac, char *av[])
 	t_fractol	fractol;
 	t_img		img;
 
-	if (ac != 2 || !BETWEEN((fractol.fractal = ft_atoi(av[1])), 0, 7))
+	if (ac != 2 || !ft_isnbr(av[1]) ||
+							!BETWEEN((fractol.fractal = ft_atoi(av[1])), 0, 7))
 	{
 		ft_printf("%s%s%s", USAGE, USAGE2, "7 : Julia ^ 3\n");
 		return (0);
@@ -47,6 +54,8 @@ int		main(int ac, char *av[])
 	fractol.win_ptr = mlx_new_window(fractol.mlx_ptr, 1000, 700, "Fractol");
 	img.ptr = mlx_new_image(fractol.mlx_ptr, WIN_WIDTH - MENU_WIDTH, 700);
 	img.data = mlx_get_data_addr(img.ptr, &img.bpp, &img.size_line, &img.endn);
+	if (!img.data)
+		exit(0);
 	attach_hooks(&fractol);
 	fractol.img = img;
 	fractol.x_thread = ((WIN_WIDTH - MENU_WIDTH) / MAX_THREAD);
