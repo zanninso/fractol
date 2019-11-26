@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:37:55 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/17 02:57:44 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/26 02:24:29 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	draw_menu(t_fractol *fractol)
 	p1 = (t_point){0, 0};
 	p2 = (t_point){300, 700};
 	draw_rectangle(p1, p2, MENU_COLOR, fractol);
-	draw_colors(fractol);
 	PUT_STRING(fractol, START_X_MENU, Y_COLOR_TITLE, WHITE, T1);
 	PUT_STRING(fractol, START_X_MENU, Y_FRACTAL_CHANGE, WHITE, T2);
 	PUT_STRING(fractol, START_X_MENU, Y_ITERATION, WHITE, T3);

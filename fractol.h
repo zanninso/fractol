@@ -6,7 +6,7 @@
 /*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 22:03:47 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/26 01:10:13 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/26 02:22:38 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef union	u_rgb_color
 typedef struct	s_color
 {
 	int			i;
-	int			*c;
+	int			c[4];
 }				t_color;
 
 typedef struct	s_img
@@ -66,11 +66,19 @@ typedef struct	s_zoom
 	double		y;
 }				t_zoom;
 
+typedef struct	s_mv_press
+{
+	_Bool		pressed;
+	int			y_color;
+	int			x;
+	int			y;
+}				t_mv_press;
+
 typedef struct	s_fractol
 {
-	t_argb		(*color)(int i, int imax, struct s_fractol *arg);
 	void		(*run)(struct s_fractol *arg);
 	void		(*init)(struct s_fractol *arg);
+	t_mv_press	*mv_press;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	char		*fractal_name;
@@ -80,14 +88,13 @@ typedef struct	s_fractol
 	t_img		img;
 	t_zoom		zoom;
 	int			iteration;
-	int			iteration_max;
 	int			img_width;
 	int			img_height;
 	int			x_thread;
-	int			y_thread;
 	int			fractal;
 	int			color_mod;
-	int			left_button_pressed;
+	t_argb		(*color)(int i, int imax, struct s_fractol *arg);
+
 	_Bool		pause;
 }				t_fractol;
 

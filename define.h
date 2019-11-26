@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 23:03:23 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/22 02:07:27 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/26 02:31:37 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define WIN_WIDTH 1000
 # define WIN_HIEGHT 700
 # define MENU_WIDTH 300
-# define MAX_THREAD 100
+# define MAX_THREAD 4
 # define DEFINE_H
 # define USAGE "FRACTOL\n\nchoice:\n0 : Mandelbrot\n1 : Julia\n2 : New multibro"
 # define USAGE2 "t\n3 : Burning ship\n4 : Tricorn\n5 : Feigenbaum\n6 : batman\n"

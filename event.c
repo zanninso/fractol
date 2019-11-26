@@ -6,7 +6,7 @@
 /*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 18:43:36 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/26 01:18:01 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/26 02:28:37 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int		mouse_press(int button, int x, int y, t_fractol *fractol)
 	{
 		color_select(x, y, fractol);
 		color_slide(x, y, fractol);
-		fractol->left_button_pressed = 1;
+		fractol->mv_press->pressed = 1;
+		fractol->mv_press->y = y;
+		fractol->mv_press->x = x;
 	}
 	return (0);
 }
@@ -29,12 +31,30 @@ int		mouse_release(int button, int x, int y, t_fractol *fractol)
 {
 	x += y * 0;
 	if (button == 1)
-		fractol->left_button_pressed = 1;
+		fractol->mv_press->pressed = 0;
 	return(1);
 }
 
 static int	move(int x, int y, t_fractol *fractol)
 {
+	int x_color;
+	if (fractol->mv_press->pressed)
+	{
+		x_color = x < START_X_MENU ? START_X_MENU : x;
+		x_color = x_color > 255 + START_X_MENU ? 255 + START_X_MENU : x_color;
+		color_slide(x_color, fractol->mv_press->y, fractol);
+	}
+	if(fractol->mv_press->pressed && BETWEEN(fractol->mv_press->x, MENU_WIDTH, WIN_WIDTH) && BETWEEN(fractol->mv_press->y, 0, WIN_HIEGHT))
+	{
+		if(abs(fractol->mv_press->x - x) >= 10 || abs(fractol->mv_press->y - y) >= 10)
+		{
+			fractol->zoom.x -= (fractol->mv_press->x - x) / fractol->zoom.scale;
+			fractol->zoom.y -= (fractol->mv_press->y - y) / fractol->zoom.scale;
+			fractol->run(fractol);
+			fractol->mv_press->x = x;
+			fractol->mv_press->y = y;
+		}
+	}
 	if (!fractol->pause)
 	{
 		x -= MENU_WIDTH;
@@ -42,8 +62,6 @@ static int	move(int x, int y, t_fractol *fractol)
 		fractol->julia_const.i = (double)(y - 350) / 90.;
 		fractol->run(fractol);
 	}
-	if (fractol->left_button_pressed)
-		color_slide(x, y, fractol);
 	return (0);
 }
 
@@ -81,8 +99,8 @@ int		win_close(t_fractol *fractol)
 void	attach_hooks(t_fractol *fractol)
 {
 	mlx_hook(fractol->win_ptr, 2, 1, key_press, fractol);
-	mlx_hook(fractol->win_ptr, 4, 1, mouse_press, fractol);
 	mlx_hook(fractol->win_ptr, 5, 1, mouse_release, fractol);
+	mlx_hook(fractol->win_ptr, 4, 1, mouse_press, fractol);
 	mlx_hook(fractol->win_ptr, 6, 1, move, fractol);
 	mlx_hook(fractol->win_ptr, 17, 1, win_close, fractol);
 }

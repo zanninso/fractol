@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-ihi <aait-ihi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-ihi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 00:42:51 by aait-ihi          #+#    #+#             */
-/*   Updated: 2019/11/17 02:59:47 by aait-ihi         ###   ########.fr       */
+/*   Updated: 2019/11/26 02:34:15 by aait-ihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	zoom(int button, int x, int y, t_fractol *fractol)
 {
 	double	old_zoom;
 
-	if (button == 4 && fractol->zoom.scale * 0.9090909090909091 <= 0.9)
+	if (button == 4 && fractol->zoom.scale * 0.9090909090909091 <= 1.1)
 		return ;
 	x -= MENU_WIDTH;
 	old_zoom = fractol->zoom.scale;
